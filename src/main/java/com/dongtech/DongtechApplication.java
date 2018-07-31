@@ -3,12 +3,14 @@ package com.dongtech;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @ServletComponentScan    //扫描Servlet
 @MapperScan("mapper")	//这里mapper是你的mybatis的mapper目录。
 @SpringBootApplication
-public class DongtechApplication {
+public class DongtechApplication{
 
     public static void main(String[] args) {
         System.out.println(msg());

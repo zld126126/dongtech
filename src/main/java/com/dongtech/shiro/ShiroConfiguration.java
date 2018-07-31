@@ -46,13 +46,14 @@ public class ShiroConfiguration {
 
         // 权限控制map.
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
-
+        //暂时不用先注了
         filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/register", "anon");
         filterChainDefinitionMap.put("/test", "authc");
         filterChainDefinitionMap.put("/druid/**", "anon");
-        filterChainDefinitionMap.put("/admin", "roles[admin]");
-        filterChainDefinitionMap.put("/index/", "authc");
+        filterChainDefinitionMap.put("/static/**", "anon");
+        //filterChainDefinitionMap.put("/admin", "roles[admin]");
+        //filterChainDefinitionMap.put("/index/", "authc");
         // 配置不会被拦截的链接 顺序判断
         // 配置退出过滤器,其中的具体的退出代码Shiro已经替我们实现了
         // 从数据库获取动态的权限

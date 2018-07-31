@@ -11,17 +11,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 登陆控制
+ */
 @Controller
 public class LoginController {
 
     //http://localhost:8080/login?username=dongbao&password=123456&rememberMe=false
     @RequestMapping(value="/login")
-    public String login(String username, String password,String vcode,Boolean rememberMe){
-        System.out.println(username);
+    public String login(String username, String password,String vcode,String remember){
+        //后台判断逻辑
+        //记住密码
+        boolean rememberMe = false;
+        if("0".equals(remember)){
+
+        }else{
+            rememberMe = true;
+        }
+        //用户名
+
+        //密码
+
         UsernamePasswordToken token = new UsernamePasswordToken(username, password,rememberMe);
         SecurityUtils.getSubject().login(token);
 
-        return "index/index";
+        return "menu/index";
     }
     //http://localhost:8080/index 如果没有token信息则显示403如果有则显示home
     @RequestMapping(value="/index")
@@ -29,9 +43,11 @@ public class LoginController {
         Subject subject = SecurityUtils.getSubject();
         User principal = (User)subject.getPrincipal();
         if(null==principal){
-            return "login";
+            //如果没有登陆信息,则登陆
+            return "/login";
         }else{
-            return "index/index";
+            //如果有登陆信息则进入主页
+            return "menu/index";
         }
     }
 
