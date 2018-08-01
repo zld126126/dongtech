@@ -52,6 +52,8 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/test", "authc");
         filterChainDefinitionMap.put("/druid/**", "anon");
         filterChainDefinitionMap.put("/static/**", "anon");
+        filterChainDefinitionMap.put("/menu/**", "anon");
+        filterChainDefinitionMap.put("/img/**", "anon");
         //filterChainDefinitionMap.put("/admin", "roles[admin]");
         //filterChainDefinitionMap.put("/index/", "authc");
         // 配置不会被拦截的链接 顺序判断

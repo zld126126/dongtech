@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
 
     //http://localhost:8080/login?username=dongbao&password=123456&rememberMe=false
-    @RequestMapping(value="/login")
+    @RequestMapping(value="/logincheck")
     public String login(String username, String password,String vcode,String remember){
         //后台判断逻辑
         //记住密码
@@ -37,6 +37,12 @@ public class LoginController {
 
         return "menu/index";
     }
+
+    @RequestMapping(value="/login")
+    public String login(){
+        return "/login";
+    }
+
     //http://localhost:8080/index 如果没有token信息则显示403如果有则显示home
     @RequestMapping(value="/index")
     public String index(){
