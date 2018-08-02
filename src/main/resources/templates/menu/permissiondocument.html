@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8" />
+        <title>东宝科技-权限管理</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </head>
+    <body>
+        <div class="page-header">
+            <h1>
+                用户管理
+                <small>
+                    <i class="icon-double-angle-right"></i>
+                    权限管理
+                </small>
+            </h1>
+        </div>
+        <table id="sample-table-1" class="table">
+            <thead>
+                <tr>
+                    <th class="center">
+                        <label>
+                            <input type="checkbox" class="ace" />
+                            <span class="lbl"></span>
+                        </label>
+                    </th>
+                    <th>角色名称</th>
+
+                    <th>角色权限</th>
+
+                    <th>权限内容</th>
+
+                    <th>权限路径</th>
+
+                    <th>权限操作</th>
+
+                    <a class="btn btn-link right" href="#">
+                        <i class="icon-plus-sign bigger-120 green"></i>
+                        添加权限
+                    </a>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td class="center">
+                        <label>
+                            <input type="checkbox" class="ace" />
+                            <span class="lbl"></span>
+                        </label>
+                    </td>
+                    <td>超级管理员</td>
+                    <td>1</td>
+                    <td>全局管理</td>
+                    <td>
+                        <ol>
+                            <li>/</li>
+                        </ol>
+                    </td>
+                    <td>
+                        <div class="visible-md visible-lg hidden-sm hidden-xs btn-group">
+                            <button class="btn btn-xs btn-success">
+                                <i class="icon-ok bigger-120"></i>
+                            </button>
+
+                            <button class="btn btn-xs btn-info">
+                                <i class="icon-edit bigger-120"></i>
+                            </button>
+
+                            <button class="btn btn-xs btn-danger">
+                                <i class="icon-trash bigger-120"></i>
+                            </button>
+
+                            <button class="btn btn-xs btn-warning">
+                                <i class="icon-flag bigger-120"></i>
+                            </button>
+                        </div>
+
+                        <div class="visible-xs visible-sm hidden-md hidden-lg">
+                            <div class="inline position-relative">
+                                <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon-cog icon-only bigger-110"></i>
+                                </button>
+
+                                <ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
+                                    <li>
+                                        <a href="#" class="tooltip-info" data-rel="tooltip" title="View">
+                                            <span class="blue">
+                                                <i class="icon-zoom-in bigger-120"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
+                                            <span class="green">
+                                                <i class="icon-edit bigger-120"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
+                                            <span class="red">
+                                                <i class="icon-trash bigger-120"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="center">
+                        <label>
+                            <input type="checkbox" class="ace" />
+                            <span class="lbl"></span>
+                        </label>
+                    </td>
+                    <td>管理员</td>
+                    <td>2</td>
+                    <td>管理一个模块/板块</td>
+                    <td>
+                        <ol>
+                            <li>/menu</li>
+                        </ol>
+                    </td>
+                    <td>
+                        <div class="visible-md visible-lg hidden-sm hidden-xs btn-group">
+                            <button class="btn btn-xs btn-success">
+                                <i class="icon-ok bigger-120"></i>
+                            </button>
+
+                            <button class="btn btn-xs btn-info">
+                                <i class="icon-edit bigger-120"></i>
+                            </button>
+
+                            <button class="btn btn-xs btn-danger">
+                                <i class="icon-trash bigger-120"></i>
+                            </button>
+
+                            <button class="btn btn-xs btn-warning">
+                                <i class="icon-flag bigger-120"></i>
+                            </button>
+                        </div>
+
+                        <div class="visible-xs visible-sm hidden-md hidden-lg">
+                            <div class="inline position-relative">
+                                <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon-cog icon-only bigger-110"></i>
+                                </button>
+
+                                <ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
+                                    <li>
+                                        <a href="#" class="tooltip-info" data-rel="tooltip" title="View">
+                                            <span class="blue">
+                                                <i class="icon-zoom-in bigger-120"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
+                                            <span class="green">
+                                                <i class="icon-edit bigger-120"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
+                                            <span class="red">
+                                                <i class="icon-trash bigger-120"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="center">
+                        <label>
+                            <input type="checkbox" class="ace" />
+                            <span class="lbl"></span>
+                        </label>
+                    </td>
+                    <td>普通权限</td>
+                    <td>3</td>
+                    <td>访问权限</td>
+                    <td>
+                        <ol>
+                            <li>无</li>
+                        </ol>
+                    </td>
+                    <td>
+                        <div class="visible-md visible-lg hidden-sm hidden-xs btn-group">
+                            <button class="btn btn-xs btn-success">
+                                <i class="icon-ok bigger-120"></i>
+                            </button>
+
+                            <button class="btn btn-xs btn-info">
+                                <i class="icon-edit bigger-120"></i>
+                            </button>
+
+                            <button class="btn btn-xs btn-danger">
+                                <i class="icon-trash bigger-120"></i>
+                            </button>
+
+                            <button class="btn btn-xs btn-warning">
+                                <i class="icon-flag bigger-120"></i>
+                            </button>
+                        </div>
+
+                        <div class="visible-xs visible-sm hidden-md hidden-lg">
+                            <div class="inline position-relative">
+                                <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon-cog icon-only bigger-110"></i>
+                                </button>
+
+                                <ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
+                                    <li>
+                                        <a href="#" class="tooltip-info" data-rel="tooltip" title="View">
+                                            <span class="blue">
+                                                <i class="icon-zoom-in bigger-120"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
+                                            <span class="green">
+                                                <i class="icon-edit bigger-120"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
+                                            <span class="red">
+                                                <i class="icon-trash bigger-120"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </body>
+</html>
