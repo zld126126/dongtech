@@ -41,7 +41,7 @@
 
 											<div class="space-6"></div>
 
-											<form action="/logincheck">
+											<form id="logincheck">
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
@@ -66,7 +66,7 @@
 															<input id="logincheckremember" type="hidden" name="remember" value="0">
 														</label>
 
-														<button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
+														<button type="button" class="width-35 pull-right btn btn-sm btn-primary" onclick="login()">
 															<i class="icon-key"></i>
 															登陆
 														</button>
@@ -243,6 +243,7 @@
 			}
 		</script>
 		<script type="text/javascript">
+
             $(function(){
                 //选中状态修改
                 checklogin();
