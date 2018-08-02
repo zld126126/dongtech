@@ -8,7 +8,7 @@
     <!-- 指定连接数据库的JDBC驱动包所在位置，指定到你本机的完整路径 -->
     <!-- 配置数据库驱动 -->
     <!-- mysql数据库 -->
-    <classPathEntry location="C:/Users/wshh/IdeaProjects/dongtech/src/main/webapp/WEB-INF/lib/mysql-connector-java-5.1.44.jar"/>
+    <classPathEntry location="C:/Users/wshh/IdeaProjects/study/dongtech/src/main/webapp/WEB-INF/lib/mysql-connector-java-5.1.44.jar"/>
 
     <!-- oracle数据库 -->
     <!--<classPathEntry location="D:/ojdbc6.jar"/>-->
@@ -53,8 +53,8 @@
         </javaClientGenerator>
 
         <!-- 数据库表名及对应的Java模型类名 -->
-        <table tableName="USERROLE"
-               domainObjectName="UserRole"
+        <table tableName="USERINFO"
+               domainObjectName="UserInfo"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"

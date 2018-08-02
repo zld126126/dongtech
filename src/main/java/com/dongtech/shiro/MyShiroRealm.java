@@ -1,6 +1,6 @@
 package com.dongtech.shiro;
 
-import com.dongtech.bean.User;
+import com.dongtech.bean.UserInfo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -17,7 +17,7 @@ public class MyShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         //获取用户
-        User user = (User)SecurityUtils.getSubject().getPrincipal();
+        UserInfo user = (UserInfo)SecurityUtils.getSubject().getPrincipal();
         SimpleAuthorizationInfo info =  new SimpleAuthorizationInfo();
         //获取用户角色
         Set<String> roleSet = new HashSet<String>();
@@ -40,7 +40,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         Map<String, Object> map = new HashMap<>(16);
         map.put("username", username);
         String password = new String((char[]) token.getCredentials());
-        User user = new User("10000",username,password);
+        UserInfo user = new UserInfo(username,password);
 
         // 账号不存在
         if (user == null) {
@@ -48,7 +48,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         }
 
         // 密码错误
-        if (!password.equals(user.getPwd())) {
+        if (!password.equals(user.getPassword())) {
             throw new IncorrectCredentialsException("账号或密码不正确");
         }
 

@@ -1,7 +1,6 @@
 package com.dongtech.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.dongtech.bean.User;
 import com.dongtech.bean.UserInfo;
 import com.dongtech.mapper.UserInfoMapper;
 import org.apache.shiro.SecurityUtils;
@@ -22,6 +21,37 @@ import java.util.Map;
 public class LoginController {
     @Autowired
     private UserInfoMapper userInfoMapper;
+
+    /**
+     * 根据用户名返回密码
+     * @param username
+     * @return
+     */
+    @RequestMapping(value="/getPasswordByUsername")
+    @ResponseBody
+    public String login(String username){
+        //准备参数
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("username",username);
+        UserInfo userInfo = userInfoMapper.selectByUsername(map);
+        if (null==userInfo){
+            JSONObject js = new JSONObject();
+            js.put("status","1");
+            js.put("data","null");
+            js.put("msg","用户名不正确,请稍后重试");
+            System.out.println(js);
+            return js.toString();
+        }else{
+            JSONObject js = new JSONObject();
+            js.put("status","0");
+            js.put("data",userInfo.getPassword());
+            js.put("msg","用户名存在,返回密码");
+            System.out.println(js);
+            return js.toString();
+        }
+    }
+
+
     //http://localhost:8080/logincheck?username=dongbao&password=123456&rememberMe=false
     @RequestMapping(value="/logincheck")
     @ResponseBody
@@ -79,7 +109,7 @@ public class LoginController {
     @RequestMapping(value="/index")
     public String index(){
         Subject subject = SecurityUtils.getSubject();
-        User principal = (User)subject.getPrincipal();
+        UserInfo principal = (UserInfo)subject.getPrincipal();
         if(null==principal){
             //如果没有登陆信息,则登陆
             return "/login";
