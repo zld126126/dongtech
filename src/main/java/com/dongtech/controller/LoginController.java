@@ -92,7 +92,7 @@ public class LoginController {
 
                 JSONObject js = new JSONObject();
                 js.put("status","0");
-                js.put("data","null");
+                js.put("data",username);
                 js.put("msg","登陆成功");
                 System.out.println(js);
                 return js.toString();

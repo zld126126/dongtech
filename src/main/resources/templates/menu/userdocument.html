@@ -25,7 +25,7 @@
                         </label>
                     </th>
                     <th>用户名</th>
-
+                    <th>邮箱</th>
                     <th>
                         <i class="icon-time bigger-110 hidden-480"></i>
                         入职时间
@@ -36,7 +36,7 @@
 
                     <th>用户操作</th>
 
-                    <a class="btn btn-link right" href="#">
+                    <a class="btn btn-link right" onclick="pagedocument('/menu/adduserinfo');">
                         <i class="icon-plus-sign bigger-120 green"></i>
                         添加用户
                     </a>
@@ -44,155 +44,40 @@
             </thead>
 
             <tbody>
-                <tr>
-                    <td class="center">
+                <tr  th:each="user,userStat : ${userInfos}">
+                    <td class="center" th:value="${user.id}">
                         <label>
                             <input type="checkbox" class="ace" />
                             <span class="lbl"></span>
                         </label>
                     </td>
-
+                    <td th:text="${user.username}">test</td>
+                    <td th:text="${user.email}">xx@xx.com</td>
+                    <td th:text="${user.worktime}">2018-01-01</td>
                     <td>
-                        <a href="#">dongtech</a>
+                        <span class="label label-sm label-success" th:if="${user.workstatus == '1'}">在职</span>
+                        <span class="label label-sm label-warning" th:if="${user.workstatus != '1'}">离职</span>
                     </td>
-                    <td>2016-06-30</td>
-
-                    <td class="hidden-480">
-                        <span class="label label-sm label-success">在职</span>
-                    </td>
-
-                    <td>123456</td>
-
+                    <td th:text="${user.password}">123456</td>
                     <td>
                         <div class="visible-md visible-lg hidden-sm hidden-xs btn-group">
-                            <button class="btn btn-xs btn-success">
+                            <button class="btn btn-xs btn-success" th:onclick="'javascript:changeWorkStatus('+${user.id}+')' ">
                                 <i class="icon-ok bigger-120"></i>
                             </button>
 
-                            <button class="btn btn-xs btn-info">
+                            <button class="btn btn-xs btn-info" th:onclick="'javascript:toEditPage('+${user.id}+')'">
                                 <i class="icon-edit bigger-120"></i>
                             </button>
 
-                            <button class="btn btn-xs btn-danger">
+                            <button class="btn btn-xs btn-danger" th:onclick="'javascript:deleteUserInfo('+${user.id}+')'">
                                 <i class="icon-trash bigger-120"></i>
                             </button>
-
-                            <button class="btn btn-xs btn-warning">
-                                <i class="icon-flag bigger-120"></i>
-                            </button>
-                        </div>
-
-                        <div class="visible-xs visible-sm hidden-md hidden-lg">
-                            <div class="inline position-relative">
-                                <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown">
-                                    <i class="icon-cog icon-only bigger-110"></i>
-                                </button>
-
-                                <ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
-                                    <li>
-                                        <a href="#" class="tooltip-info" data-rel="tooltip" title="View">
-                                            <span class="blue">
-                                                <i class="icon-zoom-in bigger-120"></i>
-                                            </span>
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
-                                            <span class="green">
-                                                <i class="icon-edit bigger-120"></i>
-                                            </span>
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
-                                            <span class="red">
-                                                <i class="icon-trash bigger-120"></i>
-                                            </span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </td>
-
-                </tr>
-
-                <tr>
-                    <td class="center">
-                        <label>
-                            <input type="checkbox" class="ace" />
-                            <span class="lbl"></span>
-                        </label>
-                    </td>
-
-                    <td>
-                        <a href="#">ceshi</a>
-                    </td>
-                    <td>2017-01-01</td>
-
-                    <td class="hidden-480">
-                        <span class="label label-sm label-warning">离职</span>
-                    </td>
-
-                    <td>666666</td>
-
-                    <td>
-                        <div class="visible-md visible-lg hidden-sm hidden-xs btn-group">
-                            <button class="btn btn-xs btn-success">
-                                <i class="icon-ok bigger-120"></i>
-                            </button>
-
-                            <button class="btn btn-xs btn-info">
-                                <i class="icon-edit bigger-120"></i>
-                            </button>
-
-                            <button class="btn btn-xs btn-danger">
-                                <i class="icon-trash bigger-120"></i>
-                            </button>
-
-                            <button class="btn btn-xs btn-warning">
-                                <i class="icon-flag bigger-120"></i>
-                            </button>
-                        </div>
-
-                        <div class="visible-xs visible-sm hidden-md hidden-lg">
-                            <div class="inline position-relative">
-                                <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown">
-                                    <i class="icon-cog icon-only bigger-110"></i>
-                                </button>
-
-                                <ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
-                                    <li>
-                                        <a href="#" class="tooltip-info" data-rel="tooltip" title="View">
-                                            <span class="blue">
-                                                <i class="icon-zoom-in bigger-120"></i>
-                                            </span>
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
-                                            <span class="green">
-                                                <i class="icon-edit bigger-120"></i>
-                                            </span>
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
-                                            <span class="red">
-                                                <i class="icon-trash bigger-120"></i>
-                                            </span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
                         </div>
                     </td>
                 </tr>
             </tbody>
         </table>
+        <!--引入user js-->
+        <script src="../../user/user.js"></script>
     </body>
 </html>

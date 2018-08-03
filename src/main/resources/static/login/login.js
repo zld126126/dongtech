@@ -59,6 +59,11 @@ function register(){
     });
 }
 
+function resetForm(formid){
+    $('#'+formid)[0].reset();
+    alert('重置成功');
+}
+
 function getPasswordByUsername(){
     $.ajax({
         //几个参数需要注意一下

@@ -5,8 +5,6 @@ import com.dongtech.bean.UserInfo;
 import com.dongtech.mapper.UserInfoMapper;
 import com.dongtech.util.DateUtil;
 import com.dongtech.util.UUIDUtil;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * 注册控制
@@ -55,7 +52,7 @@ public class RegisterController {
                 if (null==user){
                     //不存在插入一条用户
                     UserInfo userInfo = new UserInfo();
-                    userInfo.setId(UUIDUtil.getUUID());
+                    //userInfo.setId(UUIDUtil.getUUID());
                     userInfo.setEmail(email);
                     userInfo.setUsername(username);
                     userInfo.setPassword(password);
