@@ -11,7 +11,7 @@
  Target Server Version : 50536
  File Encoding         : 65001
 
- Date: 02/08/2018 17:33:30
+ Date: 07/08/2018 11:00:59
 */
 
 SET NAMES utf8mb4;
@@ -22,80 +22,104 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `permissioninfo`;
 CREATE TABLE `permissioninfo`  (
-  `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `permissionnum` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `permissionnum` int(11) DEFAULT NULL,
   `permissionexplain` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of permissioninfo
 -- ----------------------------
-INSERT INTO `permissioninfo` VALUES ('1', '1', '超级管理员');
-INSERT INTO `permissioninfo` VALUES ('2', '2', '管理员');
-INSERT INTO `permissioninfo` VALUES ('3', '3', '普通权限');
+INSERT INTO `permissioninfo` VALUES (1, 1, '超级管理员');
+INSERT INTO `permissioninfo` VALUES (2, 2, '管理员');
+INSERT INTO `permissioninfo` VALUES (3, 3, '普通权限');
 
 -- ----------------------------
 -- Table structure for permissionpath
 -- ----------------------------
 DROP TABLE IF EXISTS `permissionpath`;
 CREATE TABLE `permissionpath`  (
-  `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `permissionnum` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `permissionnum` int(11) DEFAULT NULL,
   `permissionpath` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of permissionpath
 -- ----------------------------
-INSERT INTO `permissionpath` VALUES ('1', '1', '/menu/roledocument');
-INSERT INTO `permissionpath` VALUES ('2', '1', '/menu/profiledocument');
-INSERT INTO `permissionpath` VALUES ('3', '1', '/menu/userdocument');
-INSERT INTO `permissionpath` VALUES ('4', '1', '/menu/permissiondocument');
-INSERT INTO `permissionpath` VALUES ('5', '2', '/menu/profiledocument');
-INSERT INTO `permissionpath` VALUES ('6', '2', '/menu/userdocument');
-INSERT INTO `permissionpath` VALUES ('7', '3', '/menu/profiledocument');
+INSERT INTO `permissionpath` VALUES (1, 1, '/menu/roledocument');
+INSERT INTO `permissionpath` VALUES (2, 1, '/menu/profiledocument');
+INSERT INTO `permissionpath` VALUES (3, 1, '/menu/userdocument');
+INSERT INTO `permissionpath` VALUES (4, 1, '/menu/permissiondocument');
+INSERT INTO `permissionpath` VALUES (5, 2, '/menu/profiledocument');
+INSERT INTO `permissionpath` VALUES (6, 2, '/menu/userdocument');
+INSERT INTO `permissionpath` VALUES (7, 3, '/menu/profiledocument');
 
 -- ----------------------------
 -- Table structure for userinfo
 -- ----------------------------
 DROP TABLE IF EXISTS `userinfo`;
 CREATE TABLE `userinfo`  (
-  `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `worktime` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `workstatus` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of userinfo
 -- ----------------------------
-INSERT INTO `userinfo` VALUES ('1', 'dongtech', '2016-06-30', '1', '123456', 'zld126126@126.com');
-INSERT INTO `userinfo` VALUES ('2', 'dongbao', '2017-08-30', '0', '666666', 'zld163163@163.com');
-INSERT INTO `userinfo` VALUES ('3', 'donglong', '2018-03-22', '1', '123456', 'yy@126.com');
-INSERT INTO `userinfo` VALUES ('60bff6c9fd734d8986dc4482bc08ec4d', 'zld126126', '2018-08-02', '1', 'dd931226', 'z@qq.com');
-INSERT INTO `userinfo` VALUES ('70cb8354fda04daeb6acaef13df9fd14', 'zld163163', '2018-08-02', '1', 'dd931226', 'xxx@126.com');
+INSERT INTO `userinfo` VALUES (1, 'dongtech', '2016-06-30', '1', '123456', 'zld126126@126.com');
+INSERT INTO `userinfo` VALUES (2, 'dong666', '2016-08-30', '1', '666666', 'zld163163@163.com');
+INSERT INTO `userinfo` VALUES (3, 'donglong', '2018-03-22', '1', '666666', 'yy@126.com');
+INSERT INTO `userinfo` VALUES (4, 'zld126126', '2018-08-02', '0', 'dd931226', 'z@qq.com');
+INSERT INTO `userinfo` VALUES (5, 'zld163163', '2018-08-02', '1', 'dd931226', 'xxx@126.com');
+INSERT INTO `userinfo` VALUES (7, 'xxx', '2018-08-03', '1', '123456', 'xx@xx.com');
+INSERT INTO `userinfo` VALUES (8, 'zld126', '2018-08-03', '0', 'dd931226', 'zld126126@126.com');
+
+-- ----------------------------
+-- Table structure for userprofile
+-- ----------------------------
+DROP TABLE IF EXISTS `userprofile`;
+CREATE TABLE `userprofile`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userid` int(11) DEFAULT NULL,
+  `useraddress` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `age` int(11) DEFAULT NULL,
+  `aboutuser` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of userprofile
+-- ----------------------------
+INSERT INTO `userprofile` VALUES (1, 1, 'China', 26, '一个热爱编程的人');
+INSERT INTO `userprofile` VALUES (2, 2, 'Nanjing', 22, '测试攻城狮');
 
 -- ----------------------------
 -- Table structure for userrole
 -- ----------------------------
 DROP TABLE IF EXISTS `userrole`;
 CREATE TABLE `userrole`  (
-  `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `userid` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `permissonid` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userid` int(11) DEFAULT NULL,
+  `permissionid` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of userrole
 -- ----------------------------
-INSERT INTO `userrole` VALUES ('1', '1', '1');
-INSERT INTO `userrole` VALUES ('2', '2', '2');
-INSERT INTO `userrole` VALUES ('3', '3', '3');
+INSERT INTO `userrole` VALUES (1, 1, 1);
+INSERT INTO `userrole` VALUES (2, 2, 1);
+INSERT INTO `userrole` VALUES (3, 3, 3);
+INSERT INTO `userrole` VALUES (4, 2, 1);
+INSERT INTO `userrole` VALUES (5, 2, 3);
+INSERT INTO `userrole` VALUES (6, 3, 1);
 
 SET FOREIGN_KEY_CHECKS = 1;
