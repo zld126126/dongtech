@@ -19,6 +19,7 @@
     -->
     id, permissionnum, permissionexplain
   </sql>
+
   <select id="selectAllPermission" resultMap="BaseResultMap" >
     <!--
       WARNING - @mbggenerated

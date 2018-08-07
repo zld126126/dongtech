@@ -6,7 +6,7 @@ function resetUserProfile(){
 
 function toEditPage(userid){
     //alert('编辑');
-    $("#pagedocument").load("/menu/edituserprofile", {"userid" : ""+userid})
+    $("#pagedocument").load("/menu/edituserprofile", {"userid" : ""+userid});
 }
 
 function editUserProfile(){

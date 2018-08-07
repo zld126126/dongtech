@@ -4,6 +4,7 @@ import com.dongtech.bean.PermissionInfo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface PermissionInfoMapper {
@@ -60,4 +61,10 @@ public interface PermissionInfoMapper {
      * @return
      */
     List<PermissionInfo> selectAllPermission();
+
+    /**
+     * 查询所有权限和权限路径
+     * @return
+     */
+    List<Map<String,Object>> selectAllPermissionAndAllPermissionPath();
 }

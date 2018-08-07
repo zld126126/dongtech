@@ -3,6 +3,8 @@ package com.dongtech.mapper;
 import com.dongtech.bean.PermissionPath;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface PermissionPathMapper {
     /**
@@ -52,4 +54,11 @@ public interface PermissionPathMapper {
      * @mbggenerated Fri Aug 03 15:49:22 CST 2018
      */
     int updateByPrimaryKey(PermissionPath record);
+
+    /**
+     * 根据permissionnum查询权限路径
+     * @param permissionnum
+     * @return
+     */
+    List<PermissionPath> selectPathsByPermissionInfoNum(Integer permissionnum);
 }

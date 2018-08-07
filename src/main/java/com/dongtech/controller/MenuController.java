@@ -1,9 +1,13 @@
 package com.dongtech.controller;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.dongtech.bean.PermissionInfo;
+import com.dongtech.bean.PermissionPath;
 import com.dongtech.bean.UserInfo;
 import com.dongtech.bean.UserRole;
 import com.dongtech.mapper.PermissionInfoMapper;
+import com.dongtech.mapper.PermissionPathMapper;
 import com.dongtech.mapper.UserInfoMapper;
 import com.dongtech.mapper.UserRoleMapper;
 import com.dongtech.util.StringUtil;
@@ -33,6 +37,9 @@ public class MenuController {
     private UserRoleMapper userRoleMapper;
 
     @Autowired
+    private PermissionPathMapper permissionPathMapper;
+
+    @Autowired
     private PermissionInfoMapper permissionInfoMapper;
 
     @RequestMapping("/adduserrole")
@@ -51,8 +58,57 @@ public class MenuController {
      * @return
      */
     @RequestMapping("/permissiondocument")
-    public String permissiondocument(){
+    public String permissiondocument(Model model){
+        JSONArray ja = new JSONArray();
+        //查询所有权限角色
+        List<PermissionInfo> permissionInfos = permissionInfoMapper.selectAllPermission();
+        if(null!=permissionInfos){
+            for (PermissionInfo permissionInfo:permissionInfos) {
+                Integer pid = permissionInfo.getId();
+                Integer num = permissionInfo.getPermissionnum();
+                String permissionName = permissionInfo.getPermissionexplain();
+                List<PermissionPath> permissionPaths = permissionPathMapper.selectPathsByPermissionInfoNum(num);
+                JSONObject js = new JSONObject();
+                js.put("pid",pid);
+                js.put("num",num);
+                js.put("permissionname",permissionName);
+                js.put("permissionpaths",permissionPaths);
+                ja.add(js);
+            }
+        }
+        //JSONObject json = new JSONObject();
+        //json.put("data",ja);
+        System.out.println(ja);
+        model.addAttribute("permissiondocuments",ja);
+        //List<Map<String,Object>> permissionLists = permissionInfoMapper.selectAllPermissionAndAllPermissionPath();
         return "menu/permissiondocument";
+    }
+
+    @RequestMapping("/editpermission")
+    public String editpermission(String pid,Model model){
+        JSONObject json = new JSONObject();
+        if(StringUtil.isNotEmpty(pid)){
+            int id = StringUtil.StringToInteger(pid);
+            PermissionInfo permissionInfo = permissionInfoMapper.selectByPrimaryKey(id);
+            if(null!=permissionInfo){
+                Integer permissionnum = permissionInfo.getPermissionnum();
+                List<PermissionPath> permissionPaths = permissionPathMapper.selectPathsByPermissionInfoNum(permissionnum);
+                if(null!=permissionPaths){
+                    json.put("pid",permissionInfo.getId());
+                    json.put("permissionpaths",permissionPaths);
+                    json.put("pname",permissionInfo.getPermissionexplain());
+                    model.addAttribute("editpermission",json);
+                    return "menu/editpermission";
+                }else{
+                    return "menu/permissiondocument";
+                }
+            }else{
+                return "menu/permissiondocument";
+            }
+        }else{
+            return "menu/permissiondocument";
+        }
+
     }
 
     /**
