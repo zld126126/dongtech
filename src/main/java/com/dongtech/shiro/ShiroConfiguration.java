@@ -34,9 +34,9 @@ public class ShiroConfiguration {
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
         shiroFilterFactoryBean.setLoginUrl("/login");
         // 登录成功后要跳转的链接
-        shiroFilterFactoryBean.setSuccessUrl("/index");
+        shiroFilterFactoryBean.setSuccessUrl("/login");
         // 未授权界面;
-        shiroFilterFactoryBean.setUnauthorizedUrl("/403");
+        shiroFilterFactoryBean.setUnauthorizedUrl("/login");
 
         //自定义拦截器
         Map<String, Filter> filtersMap = new LinkedHashMap<String, Filter>();
@@ -55,6 +55,12 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/menu/**", "anon");
         filterChainDefinitionMap.put("/img/**", "anon");
         filterChainDefinitionMap.put("/userinfo/**", "anon");
+        filterChainDefinitionMap.put("/userprofile/**", "anon");
+        filterChainDefinitionMap.put("/userrole/**", "anon");
+
+        // 退出 logout地址，shiro去清除session
+        filterChainDefinitionMap.put("/logout", "logout");
+
         //filterChainDefinitionMap.put("/admin", "roles[admin]");
         //filterChainDefinitionMap.put("/index/", "authc");
         // 配置不会被拦截的链接 顺序判断
@@ -116,5 +122,12 @@ public class ShiroConfiguration {
         //rememberMe cookie加密的密钥 建议每个项目都不一样 默认AES算法 密钥长度(128 256 512 位)
         cookieRememberMeManager.setCipherKey(Base64.decode("3AvVhmFLUs0KTA3Kprsdag=="));
         return cookieRememberMeManager;
+    }
+
+    public LogoutFilter logoutFilter()
+    {
+        LogoutFilter logoutFilter = new LogoutFilter();
+        logoutFilter.setLoginUrl("/login");
+        return logoutFilter;
     }
 }

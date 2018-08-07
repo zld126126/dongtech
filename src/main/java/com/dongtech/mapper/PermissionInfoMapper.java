@@ -3,6 +3,8 @@ package com.dongtech.mapper;
 import com.dongtech.bean.PermissionInfo;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface PermissionInfoMapper {
     /**
@@ -52,4 +54,10 @@ public interface PermissionInfoMapper {
      * @mbggenerated Fri Aug 03 15:48:39 CST 2018
      */
     int updateByPrimaryKey(PermissionInfo record);
+
+    /**
+     * 查询所有角色信息
+     * @return
+     */
+    List<PermissionInfo> selectAllPermission();
 }

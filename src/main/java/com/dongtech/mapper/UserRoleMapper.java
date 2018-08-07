@@ -3,6 +3,7 @@ package com.dongtech.mapper;
 import com.dongtech.bean.UserRole;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
 import java.util.Map;
 
 @Mapper
@@ -61,4 +62,24 @@ public interface UserRoleMapper {
      * @return
      */
     Map<String,Object> selectUserProfileByUserName(String username);
+
+    /**
+     * 根据用户id和权限id查询角色
+     * @param map
+     * @return
+     */
+    UserRole selectUserRoleByUseridAndPermissionid(Map<String,Object> map);
+
+    /**
+     * 查询所有角色分配信息
+     * @return
+     */
+    List<Map<String,Object>> selectAllRole();
+
+    /**
+     * 根据roleid查询角色信息
+     * @param roleid
+     * @return
+     */
+    Map<String,Object> selectRoleByRoleid(Integer roleid);
 }

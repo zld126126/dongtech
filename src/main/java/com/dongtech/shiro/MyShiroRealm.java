@@ -13,7 +13,10 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+
 public class MyShiroRealm extends AuthorizingRealm {
+
+
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         //获取用户

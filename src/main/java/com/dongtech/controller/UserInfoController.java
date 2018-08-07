@@ -3,6 +3,7 @@ package com.dongtech.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.dongtech.bean.UserInfo;
 import com.dongtech.mapper.UserInfoMapper;
+import com.dongtech.resultbean.BaseResult;
 import com.dongtech.util.DateUtil;
 import com.dongtech.util.StringUtil;
 import com.dongtech.util.UUIDUtil;
@@ -20,6 +21,8 @@ public class UserInfoController {
 
     @Autowired
     private UserInfoMapper userInfoMapper;
+
+    private JSONObject js=null;
     /**
      * 根据用户Id改变用户状态
      * @param userid
@@ -104,12 +107,8 @@ public class UserInfoController {
 
         //用户名和密码校验
         if (null==username||""==username||null==password||""==password||null==email||""==email){
-            JSONObject js = new JSONObject();
-            js.put("status","1");
-            js.put("data","null");
-            js.put("msg","用户信息不全,请重新填写");
-            System.out.println(js);
-            return js.toString();
+            js = BaseResult.jsonInit("1", "null", "用户信息不全,请重新填写");
+
         }else{
         //两次密码一致
             Map<String,Object> map = new HashMap<>();
@@ -129,30 +128,17 @@ public class UserInfoController {
                 int insert = userInfoMapper.insert(userInfo);
                 if(insert==1){
                     //插入成功
-                    JSONObject js = new JSONObject();
-                    js.put("status","0");
-                    js.put("data","null");
-                    js.put("msg","添加成功");
-                    System.out.println(js);
-                    return js.toString();
+                    js = BaseResult.jsonInit("1", "null", "添加成功");
                 }else{
-                    //插入成功
-                    JSONObject js = new JSONObject();
-                    js.put("status","1");
-                    js.put("data","null");
-                    js.put("msg","添加失败,请稍后重试");
-                    System.out.println(js);
-                    return js.toString();
+                    //插入失败
+                    js = BaseResult.jsonInit("1", "null", "添加失败,请稍后重试");
                 }
             }else{
-                JSONObject js = new JSONObject();
-                js.put("status","1");
-                js.put("data","null");
-                js.put("msg","用户名已存在,需重新选择");
-                System.out.println(js);
-                return js.toString();
+                js = BaseResult.jsonInit("1", "null", "用户名已存在,需重新选择");
             }
         }
+        System.out.println(js);
+        return js.toString();
     }
 
     @ResponseBody
@@ -160,12 +146,7 @@ public class UserInfoController {
     public String editUserInfo(String username, String password,String email,String userid){
         //后台逻辑判断
         if (null==userid||""==userid||null==username||""==username||null==password||""==password||null==email||""==email){
-            JSONObject js = new JSONObject();
-            js.put("status","1");
-            js.put("data","null");
-            js.put("msg","用户信息不全,请重新填写");
-            System.out.println(js);
-            return js.toString();
+            js = BaseResult.jsonInit("1", "null", "用户信息不全,请重新填写");
         }else{
             boolean isInt = StringUtil.isInteger(userid);
             if(isInt){
@@ -173,12 +154,7 @@ public class UserInfoController {
                 int id = StringUtil.StringToInteger(userid);
                 UserInfo userInfo = userInfoMapper.selectByPrimaryKey(id);
                 if(null==userInfo){
-                    JSONObject js = new JSONObject();
-                    js.put("status","1");
-                    js.put("data","null");
-                    js.put("msg","用户信息有误,请重新填写");
-                    System.out.println(js);
-                    return js.toString();
+                    js = BaseResult.jsonInit("1", "null", "用户信息有误,请重新填写");
                 }else{
                     UserInfo newUserInfo = new UserInfo();
                     newUserInfo.setUsername(username);
@@ -189,70 +165,40 @@ public class UserInfoController {
                     newUserInfo.setWorkstatus(userInfo.getWorkstatus());
                     int update = userInfoMapper.updateByPrimaryKey(newUserInfo);
                     if(update==1){
-                        JSONObject js = new JSONObject();
-                        js.put("status","0");
-                        js.put("data","null");
-                        js.put("msg","修改成功");
-                        System.out.println(js);
-                        return js.toString();
+                        js = BaseResult.jsonInit("0", "null", "修改成功");
                     }else{
-                        JSONObject js = new JSONObject();
-                        js.put("status","1");
-                        js.put("data","null");
-                        js.put("msg","服务器繁忙,请稍后重试");
-                        System.out.println(js);
-                        return js.toString();
+                        js = BaseResult.jsonInit("1", "null", "服务器繁忙,请稍后重试");
                     }
                 }
             }else{
-                JSONObject js = new JSONObject();
-                js.put("status","1");
-                js.put("data","null");
-                js.put("msg","用户信息有误,请重新填写");
-                System.out.println(js);
-                return js.toString();
+                js = BaseResult.jsonInit("1", "null", "用户信息有误,请重新填写");
             }
         }
+        System.out.println(js);
+        return js.toString();
     }
 
     @ResponseBody
     @RequestMapping("/deleteUserInfo")
     public String deleteUserInfo(String userid){
         if(null==userid||""==userid){
-            JSONObject js = new JSONObject();
-            js.put("status","1");
-            js.put("data","null");
-            js.put("msg","请选择一个需要删除的用户");
-            System.out.println(js);
-            return js.toString();
+            js = BaseResult.jsonInit("1", "null", "请选择一个需要删除的用户");
         }else{
             boolean isInt = StringUtil.isInteger(userid);
             if(isInt){
                 int id = StringUtil.StringToInteger(userid);
                 int delete = userInfoMapper.deleteByPrimaryKey(id);
                 if(delete==1){
-                    JSONObject js = new JSONObject();
-                    js.put("status","0");
-                    js.put("data","null");
-                    js.put("msg","修改成功");
-                    System.out.println(js);
-                    return js.toString();
+                    js = BaseResult.jsonInit("0", "null", "修改成功");
                 }else{
-                    JSONObject js = new JSONObject();
-                    js.put("status","1");
-                    js.put("data","null");
-                    js.put("msg","删除失败,请稍后重试");
-                    System.out.println(js);
-                    return js.toString();
+                    js = BaseResult.jsonInit("1", "null", "删除失败,请稍后重试");
                 }
             }else{
-                JSONObject js = new JSONObject();
-                js.put("status","1");
-                js.put("data","null");
-                js.put("msg","服务器繁忙,请稍后重试");
-                System.out.println(js);
-                return js.toString();
+                js = BaseResult.jsonInit("1", "null", "服务器繁忙,请稍后重试");
             }
         }
+        System.out.println(js);
+        return js.toString();
     }
+
 }

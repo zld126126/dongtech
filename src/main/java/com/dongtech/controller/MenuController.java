@@ -1,6 +1,9 @@
 package com.dongtech.controller;
 
+import com.dongtech.bean.PermissionInfo;
 import com.dongtech.bean.UserInfo;
+import com.dongtech.bean.UserRole;
+import com.dongtech.mapper.PermissionInfoMapper;
 import com.dongtech.mapper.UserInfoMapper;
 import com.dongtech.mapper.UserRoleMapper;
 import com.dongtech.util.StringUtil;
@@ -10,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.management.relation.Role;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +31,21 @@ public class MenuController {
 
     @Autowired
     private UserRoleMapper userRoleMapper;
+
+    @Autowired
+    private PermissionInfoMapper permissionInfoMapper;
+
+    @RequestMapping("/adduserrole")
+    public String adduserrole(Model model){
+        //查询所有用户信息
+        List<UserInfo> userInfos = userInfoMapper.selectAllUser();
+        model.addAttribute("userInfos",userInfos);
+        //查询权限信息
+        List<PermissionInfo> permissionInfos = permissionInfoMapper.selectAllPermission();
+        model.addAttribute("permissionInfos",permissionInfos);
+        return "menu/adduserrole";
+    }
+
     /**
      * 权限管理
      * @return
@@ -40,7 +60,9 @@ public class MenuController {
      * @return
      */
     @RequestMapping("/roledocument")
-    public String roledocument(){
+    public String roledocument(Model model){
+        List<Map<String,Object>> userRoles = userRoleMapper.selectAllRole();
+        model.addAttribute("userRoles",userRoles);
         return "menu/roledocument";
     }
 
@@ -88,6 +110,39 @@ public class MenuController {
         return "menu/adduserinfo";
     }
 
+
+    @RequestMapping("/edituserprofile")
+    public String edituserprofile(Model model){
+        Subject subject = SecurityUtils.getSubject();
+        UserInfo login = (UserInfo)subject.getPrincipal();
+        if(null==login){
+            return "menu/index";
+        }else {
+            System.out.println("当前登陆用户:"+login);
+            String username = login.getUsername();
+            //根据用户名查询信息
+            Map<String, Object> userprofile = userRoleMapper.selectUserProfileByUserName(username);
+            //model.addAttribute("userprofile",userprofile);
+            Integer id = (Integer) userprofile.get("id")==null?-1:(Integer) userprofile.get("id");
+            String name = (String) userprofile.get("username")==null?"没有数据":(String) userprofile.get("username");
+            String useraddress = (String) userprofile.get("useraddress")==null?"没有数据":(String) userprofile.get("useraddress");
+            Integer age = (Integer) userprofile.get("age")==null?-1:(Integer) userprofile.get("age");
+            String worktime = (String) userprofile.get("worktime")==null?"没有数据":(String) userprofile.get("worktime");
+            String aboutuser = (String) userprofile.get("aboutuser")==null?"没有数据":(String) userprofile.get("aboutuser");
+            Map<String,Object> newMap = new HashMap<>();
+            newMap.put("id",id);
+            newMap.put("username",name);
+            newMap.put("useraddress",useraddress);
+            newMap.put("age",age);
+            newMap.put("worktime",worktime);
+            newMap.put("aboutuser",aboutuser);
+            model.addAttribute("userprofile",newMap);
+            System.out.println("当前用户信息:"+newMap);
+            return "menu/edituserprofile";
+        }
+    }
+
+
     /**
      * 用户信息
      * @return
@@ -104,13 +159,15 @@ public class MenuController {
             //根据用户名查询信息
             Map<String, Object> userprofile = userRoleMapper.selectUserProfileByUserName(username);
             //model.addAttribute("userprofile",userprofile);
-            String name = StringUtil.NullToString((String) userprofile.get("username"));
-            String useraddress = StringUtil.NullToString((String) userprofile.get("useraddress"));
-            String age = StringUtil.NullToString((String) userprofile.get("age"));
-            String worktime = StringUtil.NullToString((String) userprofile.get("worktime"));
-            String aboutuser = StringUtil.NullToString((String) userprofile.get("aboutuser"));
+            Integer id = (Integer) userprofile.get("id")==null?-1:(Integer) userprofile.get("id");
+            String name = (String) userprofile.get("username")==null?"没有数据":(String) userprofile.get("username");
+            String useraddress = (String) userprofile.get("useraddress")==null?"没有数据":(String) userprofile.get("useraddress");
+            Integer age = (Integer) userprofile.get("age")==null?-1:(Integer) userprofile.get("age");
+            String worktime = (String) userprofile.get("worktime")==null?"没有数据":(String) userprofile.get("worktime");
+            String aboutuser = (String) userprofile.get("aboutuser")==null?"没有数据":(String) userprofile.get("aboutuser");
             Map<String,Object> newMap = new HashMap<>();
-            newMap.put("name",name);
+            newMap.put("id",id);
+            newMap.put("username",name);
             newMap.put("useraddress",useraddress);
             newMap.put("age",age);
             newMap.put("worktime",worktime);
@@ -158,5 +215,26 @@ public class MenuController {
         return "menu/error-500";
     }
 
-
+    @RequestMapping("/edituserrole")
+    public String edituserrole(Model model, String roleid){
+        if(StringUtil.isNotEmpty(roleid)){
+            Integer id = StringUtil.StringToInteger(roleid);
+            Map<String,Object> userRole = userRoleMapper.selectRoleByRoleid(id);
+            if(null==userRole){
+                return "menu/roledocument";
+            }else{
+                model.addAttribute("userRole",userRole);
+                //查询权限信息
+                List<PermissionInfo> permissionInfos = permissionInfoMapper.selectAllPermission();
+                if(null==permissionInfos){
+                    return "menu/roledocument";
+                }else{
+                    model.addAttribute("permissionInfos",permissionInfos);
+                    return "menu/edituserrole";
+                }
+            }
+        }else {
+            return "menu/roledocument";
+        }
+    }
 }

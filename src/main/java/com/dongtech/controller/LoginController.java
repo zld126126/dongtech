@@ -3,6 +3,7 @@ package com.dongtech.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.dongtech.bean.UserInfo;
 import com.dongtech.mapper.UserInfoMapper;
+import com.dongtech.resultbean.BaseResult;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -22,6 +23,8 @@ public class LoginController {
     @Autowired
     private UserInfoMapper userInfoMapper;
 
+    private JSONObject js = null;
+
     /**
      * 根据用户名返回密码
      * @param username
@@ -35,20 +38,12 @@ public class LoginController {
         map.put("username",username);
         UserInfo userInfo = userInfoMapper.selectByUsername(map);
         if (null==userInfo){
-            JSONObject js = new JSONObject();
-            js.put("status","1");
-            js.put("data","null");
-            js.put("msg","用户名不正确,请稍后重试");
-            System.out.println(js);
-            return js.toString();
+            js = BaseResult.jsonInit("1", "null", "用户名不正确,请稍后重试");
         }else{
-            JSONObject js = new JSONObject();
-            js.put("status","0");
-            js.put("data",userInfo.getPassword());
-            js.put("msg","用户名存在,返回密码");
-            System.out.println(js);
-            return js.toString();
+            js = BaseResult.jsonInit("0", userInfo.getPassword(), "用户名存在,返回密码");
         }
+        System.out.println(js);
+        return js.toString();
     }
 
 
@@ -66,12 +61,7 @@ public class LoginController {
 
         //用户名和密码校验
         if (null==username||""==username||null==password||""==password){
-            JSONObject js = new JSONObject();
-            js.put("status","1");
-            js.put("data","null");
-            js.put("msg","用户名或密码不正确,请稍后重试");
-            System.out.println(js);
-            return js.toString();
+            js = BaseResult.jsonInit("1","null", "用户名或密码不正确,请稍后重试");
         }else{
             //准备参数
             Map<String,Object> map = new HashMap<String,Object>();
@@ -80,24 +70,15 @@ public class LoginController {
             //查询数据库
             UserInfo userInfo = userInfoMapper.selectByUsernameAndPassword(map);
             if (null==userInfo){
-                JSONObject js = new JSONObject();
-                js.put("status","1");
-                js.put("data","null");
-                js.put("msg","用户名或密码不正确,请稍后重试");
-                System.out.println(js);
-                return js.toString();
+                js = BaseResult.jsonInit("1","null", "用户名或密码不正确,请稍后重试");
             }else{
                 UsernamePasswordToken token = new UsernamePasswordToken(username, password,rememberMe);
                 SecurityUtils.getSubject().login(token);
-
-                JSONObject js = new JSONObject();
-                js.put("status","0");
-                js.put("data",username);
-                js.put("msg","登陆成功");
-                System.out.println(js);
-                return js.toString();
+                js = BaseResult.jsonInit("0",username, "登陆成功");
             }
         }
+        System.out.println(js);
+        return js.toString();
     }
 
     @RequestMapping(value="/login")

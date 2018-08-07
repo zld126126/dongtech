@@ -3,6 +3,7 @@ package com.dongtech.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.dongtech.bean.UserInfo;
 import com.dongtech.mapper.UserInfoMapper;
+import com.dongtech.resultbean.BaseResult;
 import com.dongtech.util.DateUtil;
 import com.dongtech.util.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ public class RegisterController {
     @Autowired
     private UserInfoMapper userInfoMapper;
 
+    private JSONObject js = null;
+
     /**
      * 注册用户
      * @param username
@@ -35,12 +38,7 @@ public class RegisterController {
 
         //用户名和密码校验
         if (null==username||""==username||null==password||""==password||null==repassword||""==repassword||null==email||""==email){
-            JSONObject js = new JSONObject();
-            js.put("status","1");
-            js.put("data","null");
-            js.put("msg","注册信息不全,请重新填写");
-            System.out.println(js);
-            return js.toString();
+            js = BaseResult.jsonInit("1", "null", "注册信息不全,请重新填写");
         }else{
             //两次密码一致
             if(password.equals(repassword)){
@@ -61,37 +59,19 @@ public class RegisterController {
                     int insert = userInfoMapper.insert(userInfo);
                     if(insert==1){
                         //插入成功
-                        JSONObject js = new JSONObject();
-                        js.put("status","0");
-                        js.put("data","null");
-                        js.put("msg","注册成功");
-                        System.out.println(js);
-                        return js.toString();
+                        js = BaseResult.jsonInit("0", "null", "注册成功");
                     }else{
-                        //插入成功
-                        JSONObject js = new JSONObject();
-                        js.put("status","1");
-                        js.put("data","null");
-                        js.put("msg","注册失败,请稍后重试");
-                        System.out.println(js);
-                        return js.toString();
+                        //插入失败
+                        js = BaseResult.jsonInit("1", "null", "注册失败,请稍后重试");
                     }
                 }else{
-                    JSONObject js = new JSONObject();
-                    js.put("status","1");
-                    js.put("data","null");
-                    js.put("msg","用户名已存在,请重新输入");
-                    System.out.println(js);
-                    return js.toString();
+                    js = BaseResult.jsonInit("1", "null", "用户名已存在,请重新输入");
                 }
             }else{
-                JSONObject js = new JSONObject();
-                js.put("status","1");
-                js.put("data","null");
-                js.put("msg","两次密码不一致,请重新输入");
-                System.out.println(js);
-                return js.toString();
+                js = BaseResult.jsonInit("1", "null", "两次密码不一致,请重新输入");
             }
         }
+        System.out.println(js);
+        return js.toString();
     }
 }
