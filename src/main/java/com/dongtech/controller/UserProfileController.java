@@ -6,6 +6,7 @@ import com.dongtech.bean.UserProfile;
 import com.dongtech.mapper.UserInfoMapper;
 import com.dongtech.mapper.UserProfileMapper;
 import com.dongtech.mapper.UserRoleMapper;
+import com.dongtech.resultbean.BaseResult;
 import com.dongtech.util.StringUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -34,25 +35,17 @@ public class UserProfileController {
     @Autowired
     private UserRoleMapper userRoleMapper;
 
+    private JSONObject js;
+
     @ResponseBody
     @RequestMapping("/editUserProfile")
     public String editUserProfile(String userid, String useraddress, String worktime, String aboutuser, String age, String username){
         Subject subject = SecurityUtils.getSubject();
         UserInfo login = (UserInfo)subject.getPrincipal();
         if(null==login){
-            JSONObject js = new JSONObject();
-            js.put("status","1");
-            js.put("data","null");
-            js.put("msg","请登录用户");
-            logger.info(String.valueOf(js));
-            return js.toString();
+            js = BaseResult.jsonInit("1","null","请登录用户");
         }else if (null == username || "" == username || null == userid || "" == userid || null == useraddress || "" == useraddress || null == worktime || "" == worktime || null == aboutuser || "" == aboutuser || null == age || "" == age) {
-            JSONObject js = new JSONObject();
-            js.put("status", "1");
-            js.put("data", "null");
-            js.put("msg", "信息有误,请重新填写");
-            logger.info(String.valueOf(js));
-            return js.toString();
+            js = BaseResult.jsonInit("1","null","信息有误,请重新填写");
         } else {
             //准备参数
             Integer id = userid == null || userid == "没有数据" ? -1 : StringUtil.StringToInteger(userid);
@@ -86,61 +79,28 @@ public class UserProfileController {
                                 newUserProfile.setUserid(userProfile.getUserid());
                                 int updateUserProfile = userProfileMapper.updateByPrimaryKey(newUserProfile);
                                 if (updateUserProfile == 1) {
-                                    JSONObject js = new JSONObject();
-                                    js.put("status", "0");
-                                    js.put("data", "null");
-                                    js.put("msg", "修改成功");
-                                    logger.info(String.valueOf(js));
-                                    return js.toString();
+                                    js = BaseResult.jsonInit("0","null","修改成功");
                                 } else {
-                                    JSONObject js = new JSONObject();
-                                    js.put("status", "1");
-                                    js.put("data", "null");
-                                    js.put("msg", "修改失败,请稍后重试");
-                                    logger.info(String.valueOf(js));
-                                    return js.toString();
+                                    js = BaseResult.jsonInit("1","null","修改失败,请稍后重试");
                                 }
                             }else{
-                                JSONObject js = new JSONObject();
-                                js.put("status", "1");
-                                js.put("data", "null");
-                                js.put("msg", "修改失败,请稍后重试");
-                                logger.info(String.valueOf(js));
-                                return js.toString();
+                                js = BaseResult.jsonInit("1","null","修改失败,请稍后重试");
                             }
                         }else{
-                            JSONObject js = new JSONObject();
-                            js.put("status", "1");
-                            js.put("data", "null");
-                            js.put("msg", "修改失败,请稍后重试");
-                            logger.info(String.valueOf(js));
-                            return js.toString();
+                            js = BaseResult.jsonInit("1","null","修改失败,请稍后重试");
                         }
 
                     } else {
-                        JSONObject js = new JSONObject();
-                        js.put("status", "1");
-                        js.put("data", "null");
-                        js.put("msg", "修改失败,请稍后重试");
-                        logger.info(String.valueOf(js));
-                        return js.toString();
+                        js = BaseResult.jsonInit("1","null","修改失败,请稍后重试");
                     }
                 }else{
-                    JSONObject js = new JSONObject();
-                    js.put("status", "1");
-                    js.put("data", "null");
-                    js.put("msg", "信息有误,请稍后重试");
-                    logger.info(String.valueOf(js));
-                    return js.toString();
+                    js = BaseResult.jsonInit("1","null","信息有误,请稍后重试");
                 }
             }else{
-                JSONObject js = new JSONObject();
-                js.put("status", "1");
-                js.put("data", "null");
-                js.put("msg", "修改失败,请稍后重试");
-                logger.info(String.valueOf(js));
-                return js.toString();
+                js = BaseResult.jsonInit("1","null","修改失败,请稍后重试");
             }
         }
+        logger.info(String.valueOf(js));
+        return js.toString();
     }
 }

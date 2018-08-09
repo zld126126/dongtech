@@ -36,12 +36,7 @@ public class UserInfoController {
         //先判断userid
         if(null==userid||""==userid||!StringUtil.isInteger(userid)){
             //修改失败
-            JSONObject js = new JSONObject();
-            js.put("status","1");
-            js.put("data","null");
-            js.put("msg","请选择一个用户");
-            logger.info(String.valueOf(js));
-            return js.toString();
+            js = BaseResult.jsonInit("1","null","请选择一个用户");
         }else{
             int id = Integer.parseInt(userid);
             //先判断目前状态
@@ -58,20 +53,10 @@ public class UserInfoController {
                 int update = userInfoMapper.updateByPrimaryKey(newUserInfo);
                 if(update==1){
                     //修改成功
-                    JSONObject js = new JSONObject();
-                    js.put("status","0");
-                    js.put("data","null");
-                    js.put("msg","修改成功");
-                    logger.info(String.valueOf(js));
-                    return js.toString();
+                    js = BaseResult.jsonInit("0","null","修改成功");
                 }else{
                     //修改失败
-                    JSONObject js = new JSONObject();
-                    js.put("status","1");
-                    js.put("data","null");
-                    js.put("msg","修改状态失败,请重试");
-                    logger.info(String.valueOf(js));
-                    return js.toString();
+                    js = BaseResult.jsonInit("1","null","修改状态失败,请重试");
                 }
             }else{
                 UserInfo newUserInfo = new UserInfo();
@@ -84,23 +69,15 @@ public class UserInfoController {
                 int update = userInfoMapper.updateByPrimaryKey(newUserInfo);
                 if(update==1){
                     //修改成功
-                    JSONObject js = new JSONObject();
-                    js.put("status","0");
-                    js.put("data","null");
-                    js.put("msg","修改成功");
-                    logger.info(String.valueOf(js));
-                    return js.toString();
+                    js = BaseResult.jsonInit("0","null","修改成功");
                 }else{
                     //修改失败
-                    JSONObject js = new JSONObject();
-                    js.put("status","1");
-                    js.put("data","null");
-                    js.put("msg","修改状态失败,请重试");
-                    logger.info(String.valueOf(js));
-                    return js.toString();
+                    js = BaseResult.jsonInit("1","null","修改状态失败,请重试");
                 }
             }
         }
+        logger.info(String.valueOf(js));
+        return js.toString();
     }
 
     @ResponseBody
