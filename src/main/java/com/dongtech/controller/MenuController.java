@@ -120,9 +120,21 @@ public class MenuController {
      */
     @RequestMapping("/roledocument")
     public String roledocument(Model model){
+        /*Subject subject = SecurityUtils.getSubject();
+        if(subject.hasRole("sys")) {
+            //有权限
+            List<Map<String,Object>> userRoles = userRoleMapper.selectAllRole();
+            model.addAttribute("userRoles",userRoles);
+            return "menu/roledocument";
+        } else {
+            //无权限
+            return "menu/index";
+        }*/
+
         List<Map<String,Object>> userRoles = userRoleMapper.selectAllRole();
         model.addAttribute("userRoles",userRoles);
         return "menu/roledocument";
+
     }
 
     /**

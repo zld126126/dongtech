@@ -55,9 +55,11 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/img/**", "anon");
 
         //filterChainDefinitionMap.put("/menu/roledocument", "roles[manager]");
-        filterChainDefinitionMap.put("/menu/roledocument", "PathFilter");
-        filterChainDefinitionMap.put("/menu/index", "anon");
+//        filterChainDefinitionMap.put("/menu/roledocument", "authc");
+//        filterChainDefinitionMap.put("/menu/index", "anon");
         //filterChainDefinitionMap.put("/menu/roledocument", "roles[dongtech]");
+        filterChainDefinitionMap.put("/menu/**", "roles[sys]");
+        filterChainDefinitionMap.put("/menu/**", "roles[manager]");
         filterChainDefinitionMap.put("/userinfo/**", "anon");
         filterChainDefinitionMap.put("/userprofile/**", "anon");
         filterChainDefinitionMap.put("/userrole/**", "anon");
