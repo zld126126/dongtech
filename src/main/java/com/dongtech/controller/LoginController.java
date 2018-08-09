@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.dongtech.bean.UserInfo;
 import com.dongtech.mapper.UserInfoMapper;
 import com.dongtech.resultbean.BaseResult;
+import com.dongtech.shiro.MyShiroRealm;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -72,6 +73,8 @@ public class LoginController {
             if (null==userInfo){
                 js = BaseResult.jsonInit("1","null", "用户名或密码不正确,请稍后重试");
             }else{
+                //先清除缓存
+                new MyShiroRealm().clearCachedAuthorizationInfo();
                 UsernamePasswordToken token = new UsernamePasswordToken(username, password,rememberMe);
                 SecurityUtils.getSubject().login(token);
                 js = BaseResult.jsonInit("0",username, "登陆成功");
