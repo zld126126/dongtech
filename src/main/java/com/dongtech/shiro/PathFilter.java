@@ -63,7 +63,7 @@ public class PathFilter extends AccessControlFilter {
         logger.info("------------------自定义path验证------------------");
         boolean flag = false;
         Subject subject = getSubject(servletRequest,servletResponse);
-        String url = getPathWithinApplication(servletRequest);
+        /*String url = getPathWithinApplication(servletRequest);
         logger.info("当前用户正在访问的 url => " + url);
         UserInfo user = (UserInfo)subject.getPrincipal();
         if(null==user){
@@ -94,7 +94,11 @@ public class PathFilter extends AccessControlFilter {
                     logger.info("当前用户是: => " + username+"有"+url+"访问权限");
                 }
             }
+        }*/
+        if(subject.hasRole("sys")||subject.hasRole("manager")){
+            flag = true;
         }
+
         return flag;
         //return subject.isPermitted(url);
     }

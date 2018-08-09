@@ -53,24 +53,23 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/druid/**", "anon");
         filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/img/**", "anon");
+        filterChainDefinitionMap.put("/img/**", "anon");
 
         //filterChainDefinitionMap.put("/menu/roledocument", "roles[manager]");
 //        filterChainDefinitionMap.put("/menu/roledocument", "authc");
 //        filterChainDefinitionMap.put("/menu/index", "anon");
         //filterChainDefinitionMap.put("/menu/roledocument", "roles[dongtech]");
-        filterChainDefinitionMap.put("/menu/**", "roles[sys]");
-        filterChainDefinitionMap.put("/menu/**", "roles[manager]");
         filterChainDefinitionMap.put("/userinfo/**", "anon");
         filterChainDefinitionMap.put("/userprofile/**", "anon");
         filterChainDefinitionMap.put("/userrole/**", "anon");
 
         //登陆
-        filterChainDefinitionMap.put("/login", "anon");
+        filterChainDefinitionMap.put("/login/**", "anon");
         //注册
         filterChainDefinitionMap.put("/register", "anon");
         // 退出 logout地址，shiro去清除session
         filterChainDefinitionMap.put("/logout", "logout");
-
+        filterChainDefinitionMap.put("/menu/roledocument","PathFilter");
         //filterChainDefinitionMap.put("/admin", "roles[admin]");
         //filterChainDefinitionMap.put("/index/", "authc");
         // 配置不会被拦截的链接 顺序判断
