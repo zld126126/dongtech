@@ -5,9 +5,12 @@ import com.dongtech.bean.UserInfo;
 import com.dongtech.mapper.UserInfoMapper;
 import com.dongtech.resultbean.BaseResult;
 import com.dongtech.shiro.MyShiroRealm;
+import com.dongtech.util.DateUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +24,9 @@ import java.util.Map;
  */
 @Controller
 public class LoginController {
+    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+
+
     @Autowired
     private UserInfoMapper userInfoMapper;
 
@@ -43,7 +49,7 @@ public class LoginController {
         }else{
             js = BaseResult.jsonInit("0", userInfo.getPassword(), "用户名存在,返回密码");
         }
-        System.out.println(js);
+        logger.info(String.valueOf(js));
         return js.toString();
     }
 
@@ -80,7 +86,7 @@ public class LoginController {
                 js = BaseResult.jsonInit("0",username, "登陆成功");
             }
         }
-        System.out.println(js);
+        logger.info(String.valueOf(js));
         return js.toString();
     }
 

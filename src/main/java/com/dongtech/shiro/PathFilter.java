@@ -4,6 +4,7 @@ import com.dongtech.bean.PermissionInfo;
 import com.dongtech.bean.PermissionPath;
 import com.dongtech.bean.UserInfo;
 import com.dongtech.bean.UserRole;
+import com.dongtech.controller.LoginController;
 import com.dongtech.mapper.PermissionInfoMapper;
 import com.dongtech.mapper.PermissionPathMapper;
 import com.dongtech.mapper.UserInfoMapper;
@@ -12,6 +13,8 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.AccessControlFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
@@ -22,6 +25,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 public class PathFilter extends AccessControlFilter {
+
+    private static final Logger logger = LoggerFactory.getLogger(PathFilter.class);
+
 
     @Autowired
     private UserInfoMapper userInfoMapper;
@@ -54,17 +60,17 @@ public class PathFilter extends AccessControlFilter {
      */
     @Override
     protected boolean isAccessAllowed(ServletRequest servletRequest, ServletResponse servletResponse, Object o) throws Exception {
-        System.out.println("------------------自定义path验证------------------");
+        logger.info("------------------自定义path验证------------------");
         boolean flag = false;
         Subject subject = getSubject(servletRequest,servletResponse);
         String url = getPathWithinApplication(servletRequest);
-        System.out.println("当前用户正在访问的 url => " + url);
+        logger.info("当前用户正在访问的 url => " + url);
         UserInfo user = (UserInfo)subject.getPrincipal();
         if(null==user){
 
         }else{
             String username = user.getUsername();
-            System.out.println("当前用户是: => " + username);
+            logger.info("当前用户是: => " + username);
             Map<String,Object> usermap = new HashMap<>();
             usermap.put("username",username);
             //查询数据库
@@ -85,7 +91,7 @@ public class PathFilter extends AccessControlFilter {
             for (PermissionPath permissionPath:permissionPaths){
                 if(url.equals(permissionPath.getPermissionpath())){
                     flag = true;
-                    System.out.println("当前用户是: => " + username+"有"+url+"访问权限");
+                    logger.info("当前用户是: => " + username+"有"+url+"访问权限");
                 }
             }
         }

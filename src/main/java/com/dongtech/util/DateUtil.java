@@ -1,5 +1,9 @@
 package com.dongtech.util;
 
+import com.dongtech.controller.RegisterController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -8,6 +12,9 @@ import java.util.*;
  * 时间工具类
  */
 public class DateUtil {
+
+    private static final Logger logger = LoggerFactory.getLogger(DateUtil.class);
+
     /**
      * 获取现在时间
      *
@@ -548,12 +555,12 @@ public class DateUtil {
 
     public static void main(String[] args) throws Exception {
         try {
-            System.out.println(getnyr());
+            logger.info(getnyr());
             //System.out.print(Integer.valueOf(getTwoDay("2006-11-03 12:22:10", "2006-11-02 11:22:09")));
         } catch (Exception e) {
             throw new Exception();
         }
-        //System.out.println("sss");
+        //logger.info("sss");
     }
 
 

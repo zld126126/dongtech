@@ -9,6 +9,8 @@ import com.dongtech.mapper.UserRoleMapper;
 import com.dongtech.util.StringUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +23,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/userprofile")
 public class UserProfileController {
+    private static final Logger logger = LoggerFactory.getLogger(UserProfileController.class);
 
     @Autowired
     private UserInfoMapper userInfoMapper;
@@ -41,14 +44,14 @@ public class UserProfileController {
             js.put("status","1");
             js.put("data","null");
             js.put("msg","请登录用户");
-            System.out.println(js);
+            logger.info(String.valueOf(js));
             return js.toString();
         }else if (null == username || "" == username || null == userid || "" == userid || null == useraddress || "" == useraddress || null == worktime || "" == worktime || null == aboutuser || "" == aboutuser || null == age || "" == age) {
             JSONObject js = new JSONObject();
             js.put("status", "1");
             js.put("data", "null");
             js.put("msg", "信息有误,请重新填写");
-            System.out.println(js);
+            logger.info(String.valueOf(js));
             return js.toString();
         } else {
             //准备参数
@@ -87,14 +90,14 @@ public class UserProfileController {
                                     js.put("status", "0");
                                     js.put("data", "null");
                                     js.put("msg", "修改成功");
-                                    System.out.println(js);
+                                    logger.info(String.valueOf(js));
                                     return js.toString();
                                 } else {
                                     JSONObject js = new JSONObject();
                                     js.put("status", "1");
                                     js.put("data", "null");
                                     js.put("msg", "修改失败,请稍后重试");
-                                    System.out.println(js);
+                                    logger.info(String.valueOf(js));
                                     return js.toString();
                                 }
                             }else{
@@ -102,7 +105,7 @@ public class UserProfileController {
                                 js.put("status", "1");
                                 js.put("data", "null");
                                 js.put("msg", "修改失败,请稍后重试");
-                                System.out.println(js);
+                                logger.info(String.valueOf(js));
                                 return js.toString();
                             }
                         }else{
@@ -110,7 +113,7 @@ public class UserProfileController {
                             js.put("status", "1");
                             js.put("data", "null");
                             js.put("msg", "修改失败,请稍后重试");
-                            System.out.println(js);
+                            logger.info(String.valueOf(js));
                             return js.toString();
                         }
 
@@ -119,7 +122,7 @@ public class UserProfileController {
                         js.put("status", "1");
                         js.put("data", "null");
                         js.put("msg", "修改失败,请稍后重试");
-                        System.out.println(js);
+                        logger.info(String.valueOf(js));
                         return js.toString();
                     }
                 }else{
@@ -127,7 +130,7 @@ public class UserProfileController {
                     js.put("status", "1");
                     js.put("data", "null");
                     js.put("msg", "信息有误,请稍后重试");
-                    System.out.println(js);
+                    logger.info(String.valueOf(js));
                     return js.toString();
                 }
             }else{
@@ -135,7 +138,7 @@ public class UserProfileController {
                 js.put("status", "1");
                 js.put("data", "null");
                 js.put("msg", "修改失败,请稍后重试");
-                System.out.println(js);
+                logger.info(String.valueOf(js));
                 return js.toString();
             }
         }

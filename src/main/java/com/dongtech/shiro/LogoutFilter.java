@@ -2,10 +2,13 @@ package com.dongtech.shiro;
 
 
 import com.dongtech.bean.UserInfo;
+import com.dongtech.util.DateUtil;
 import com.dongtech.util.StringUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.SessionException;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.ServletRequest;
@@ -16,6 +19,7 @@ import javax.servlet.ServletResponse;
  */
 
 public class LogoutFilter extends org.apache.shiro.web.filter.authc.LogoutFilter {
+    private static final Logger logger = LoggerFactory.getLogger(LogoutFilter.class);
 
     /**
      * 退出后重定向的地址
@@ -45,20 +49,20 @@ public class LogoutFilter extends org.apache.shiro.web.filter.authc.LogoutFilter
                 if (null!=user)
                 {
                     String loginName = user.getUsername();
-                    System.out.println(loginName+":退出了");
+                    logger.info(loginName+":退出了");
                 }
                 // 退出登录
                 subject.logout();
             }
             catch (SessionException ise)
             {
-                System.out.println(ise);
+                logger.info(String.valueOf(ise));
             }
             issueRedirect(request, response, redirectUrl);
         }
         catch (Exception e)
         {
-            System.out.println(e);
+            logger.info(String.valueOf(e));
         }
         return false;
     }

@@ -7,6 +7,8 @@ import com.dongtech.resultbean.BaseResult;
 import com.dongtech.util.DateUtil;
 import com.dongtech.util.StringUtil;
 import com.dongtech.util.UUIDUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/userinfo")
 public class UserInfoController {
+    private static final Logger logger = LoggerFactory.getLogger(UserInfoController.class);
 
     @Autowired
     private UserInfoMapper userInfoMapper;
@@ -37,7 +40,7 @@ public class UserInfoController {
             js.put("status","1");
             js.put("data","null");
             js.put("msg","请选择一个用户");
-            System.out.println(js);
+            logger.info(String.valueOf(js));
             return js.toString();
         }else{
             int id = Integer.parseInt(userid);
@@ -59,7 +62,7 @@ public class UserInfoController {
                     js.put("status","0");
                     js.put("data","null");
                     js.put("msg","修改成功");
-                    System.out.println(js);
+                    logger.info(String.valueOf(js));
                     return js.toString();
                 }else{
                     //修改失败
@@ -67,7 +70,7 @@ public class UserInfoController {
                     js.put("status","1");
                     js.put("data","null");
                     js.put("msg","修改状态失败,请重试");
-                    System.out.println(js);
+                    logger.info(String.valueOf(js));
                     return js.toString();
                 }
             }else{
@@ -85,7 +88,7 @@ public class UserInfoController {
                     js.put("status","0");
                     js.put("data","null");
                     js.put("msg","修改成功");
-                    System.out.println(js);
+                    logger.info(String.valueOf(js));
                     return js.toString();
                 }else{
                     //修改失败
@@ -93,7 +96,7 @@ public class UserInfoController {
                     js.put("status","1");
                     js.put("data","null");
                     js.put("msg","修改状态失败,请重试");
-                    System.out.println(js);
+                    logger.info(String.valueOf(js));
                     return js.toString();
                 }
             }
@@ -137,7 +140,7 @@ public class UserInfoController {
                 js = BaseResult.jsonInit("1", "null", "用户名已存在,需重新选择");
             }
         }
-        System.out.println(js);
+        logger.info(String.valueOf(js));
         return js.toString();
     }
 
@@ -174,7 +177,7 @@ public class UserInfoController {
                 js = BaseResult.jsonInit("1", "null", "用户信息有误,请重新填写");
             }
         }
-        System.out.println(js);
+        logger.info(String.valueOf(js));
         return js.toString();
     }
 
@@ -197,7 +200,7 @@ public class UserInfoController {
                 js = BaseResult.jsonInit("1", "null", "服务器繁忙,请稍后重试");
             }
         }
-        System.out.println(js);
+        logger.info(String.valueOf(js));
         return js.toString();
     }
 

@@ -5,6 +5,8 @@ import com.dongtech.bean.UserRole;
 import com.dongtech.mapper.UserRoleMapper;
 import com.dongtech.resultbean.BaseResult;
 import com.dongtech.util.StringUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,8 @@ import java.util.Map;
 @Controller
 @RequestMapping("/userrole")
 public class UserRoleController {
+    private static final Logger logger = LoggerFactory.getLogger(UserRoleController.class);
+
     @Autowired
     private UserRoleMapper userRoleMapper;
 
@@ -49,7 +53,7 @@ public class UserRoleController {
         }else{
             js = BaseResult.jsonInit("1", "null", "用户信息有误,请重新选择");
         }
-        System.out.println(js);
+        logger.info(String.valueOf(js));
         return js.toString();
     }
 
@@ -77,7 +81,7 @@ public class UserRoleController {
         }else{
             js = BaseResult.jsonInit("1", "null", "请至少选择一个角色");
         }
-        System.out.println(js);
+        logger.info(String.valueOf(js));
         return js.toString();
     }
 
@@ -95,7 +99,7 @@ public class UserRoleController {
         }else{
             js = BaseResult.jsonInit("1", "null", "请至少选择一个角色");
         }
-        System.out.println(js);
+        logger.info(String.valueOf(js));
         return js.toString();
     }
 

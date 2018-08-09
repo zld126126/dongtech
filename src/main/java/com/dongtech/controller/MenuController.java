@@ -13,6 +13,8 @@ import com.dongtech.mapper.UserRoleMapper;
 import com.dongtech.util.StringUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +32,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/menu")
 public class MenuController {
+    private static final Logger logger = LoggerFactory.getLogger(MenuController.class);
     @Autowired
     private UserInfoMapper userInfoMapper;
 
@@ -78,7 +81,7 @@ public class MenuController {
         }
         //JSONObject json = new JSONObject();
         //json.put("data",ja);
-        System.out.println(ja);
+        logger.info(String.valueOf(ja));
         model.addAttribute("permissiondocuments",ja);
         //List<Map<String,Object>> permissionLists = permissionInfoMapper.selectAllPermissionAndAllPermissionPath();
         return "menu/permissiondocument";
@@ -143,7 +146,7 @@ public class MenuController {
         boolean isInt = StringUtil.isInteger(userid);
         if(isInt){
             int id = StringUtil.StringToInteger(userid);
-            System.out.println(id);
+            logger.info(String.valueOf(id));
             //userid="1";
             UserInfo userInfo = userInfoMapper.selectByPrimaryKey(id);
             if(null==userInfo){
@@ -174,7 +177,7 @@ public class MenuController {
         if(null==login){
             return "menu/index";
         }else {
-            System.out.println("当前登陆用户:"+login);
+            logger.info("当前登陆用户:"+login);
             String username = login.getUsername();
             //根据用户名查询信息
             Map<String, Object> userprofile = userRoleMapper.selectUserProfileByUserName(username);
@@ -193,7 +196,7 @@ public class MenuController {
             newMap.put("worktime",worktime);
             newMap.put("aboutuser",aboutuser);
             model.addAttribute("userprofile",newMap);
-            System.out.println("当前用户信息:"+newMap);
+            logger.info("当前用户信息:"+newMap);
             return "menu/edituserprofile";
         }
     }
@@ -210,7 +213,7 @@ public class MenuController {
         if(null==login){
             return "menu/index";
         }else{
-            System.out.println("当前登陆用户:"+login);
+            logger.info("当前登陆用户:"+login);
             String username = login.getUsername();
             //根据用户名查询信息
             Map<String, Object> userprofile = userRoleMapper.selectUserProfileByUserName(username);
@@ -229,7 +232,7 @@ public class MenuController {
             newMap.put("worktime",worktime);
             newMap.put("aboutuser",aboutuser);
             model.addAttribute("userprofile",newMap);
-            System.out.println("当前用户信息:"+newMap);
+            logger.info("当前用户信息:"+newMap);
             return "menu/profiledocument";
         }
 

@@ -14,14 +14,17 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-
+import org.slf4j.Logger;
 import javax.annotation.Resource;
 import java.util.*;
 
 
 public class MyShiroRealm extends AuthorizingRealm {
+    private static final Logger logger = LoggerFactory.getLogger(MyShiroRealm.class);
+
     @Autowired
     private UserInfoMapper userInfoMapper;
 
@@ -37,7 +40,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        System.out.println("------------------开始身份认证------------------");
+        logger.info("------------------开始身份认证------------------");
         //获取用户
         UserInfo user = (UserInfo)SecurityUtils.getSubject().getPrincipal();
         SimpleAuthorizationInfo info =  new SimpleAuthorizationInfo();
@@ -80,13 +83,13 @@ public class MyShiroRealm extends AuthorizingRealm {
         //权限路径赋予
         Set<String> permissionSet = new HashSet<String>();
         info.setStringPermissions(permissionSet);*/
-        System.out.println(info);
+        logger.info(String.valueOf(info));
         return info;
     }
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-        System.out.println("------------------开始登陆验证------------------");
+        logger.info("------------------开始登陆验证------------------");
         String username = (String) token.getPrincipal();
         //Map<String, Object> map = new HashMap<>(16);
         //map.put("username", username);

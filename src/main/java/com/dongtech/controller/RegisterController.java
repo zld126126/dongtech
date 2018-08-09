@@ -6,6 +6,8 @@ import com.dongtech.mapper.UserInfoMapper;
 import com.dongtech.resultbean.BaseResult;
 import com.dongtech.util.DateUtil;
 import com.dongtech.util.UUIDUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,9 @@ import java.util.Map;
  */
 @Controller
 public class RegisterController {
+    private static final Logger logger = LoggerFactory.getLogger(RegisterController.class);
+
+
     @Autowired
     private UserInfoMapper userInfoMapper;
 
@@ -71,7 +76,7 @@ public class RegisterController {
                 js = BaseResult.jsonInit("1", "null", "两次密码不一致,请重新输入");
             }
         }
-        System.out.println(js);
+        logger.info(String.valueOf(js));
         return js.toString();
     }
 }
